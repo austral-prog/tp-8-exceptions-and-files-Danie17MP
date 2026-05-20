@@ -1,4 +1,7 @@
 # Ejercicio 4 - Promedio seguro con manejo de errores
+import os
+
+from fontTools.misc.cython import returns
 
 
 def safe_average(filename):
@@ -28,4 +31,22 @@ def safe_average(filename):
         # archivo contiene: "10\n20\nno_es_un_numero\n30\n"
         safe_average("numeros.txt") -> 20.0
     """
-    pass  # Reemplazar con tu implementación
+    if not os.path.exists(filename):
+        raise FileNotFoundError("no existe sete archivo")
+
+    sum_avg = 0.0
+    invalid_archivo = True
+    valid_nums = 0
+    with open(filename, "r") as archivo:
+        for num in archivo:
+            try:
+                num = float(num)
+                sum_avg += num
+                invalid_archivo = False
+                valid_nums += 1
+            except ValueError:
+                pass
+    if invalid_archivo:
+        raise ValueError("no valid numbers")
+    else:
+        return sum_avg / valid_nums

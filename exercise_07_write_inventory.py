@@ -1,5 +1,5 @@
 # Ejercicio 7 - Escribir un inventario ordenado
-
+import os
 
 def write_inventory(filename, inventory):
     """
@@ -28,4 +28,14 @@ def write_inventory(filename, inventory):
         # iron:7
         # wood:10
     """
-    pass  # Reemplazar con tu implementación
+    if os.path.exists(filename):
+        with open(filename, "w") as my_file:
+            sorted(inventory.items(), key=lambda x: x[0])
+            for key, value in inventory.items():
+                my_file.write(f"{key}:{value}\n")
+    else:
+        with open(filename, "a") as my_file:
+            a = sorted(inventory.items(), key = lambda x: x[0])
+            for key, value in a:
+                my_file.write(f"{key}:{value}\n")
+    return None

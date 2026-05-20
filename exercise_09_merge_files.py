@@ -1,4 +1,5 @@
 # Ejercicio 9 - Combinar dos archivos
+import os
 
 
 def merge_files(file1, file2, output):
@@ -32,4 +33,20 @@ def merge_files(file1, file2, output):
         # hola
         # mundo
     """
-    pass  # Reemplazar con tu implementación
+    if os.path.exists(file1) and os.path.exists(file2):
+        with open(file1, "r") as f1, open(file2, "r") as f2:
+            if os.path.exists(output):
+                with open(output, "w") as f_out:
+                    for line in f1:
+                        f_out.write(line)
+                    for line in f2:
+                        f_out.write(line)
+            else:
+                with open(output, "a") as f_out:
+                    for line in f1:
+                        f_out.write(line)
+                    for line in f2:
+                        f_out.write(line)
+    else:
+        raise FileNotFoundError
+    return None

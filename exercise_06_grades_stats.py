@@ -1,4 +1,7 @@
 # Ejercicio 6 - Estadísticas de notas por estudiante
+import os
+
+from matplotlib import lines
 
 
 def grades_stats(filename):
@@ -34,4 +37,21 @@ def grades_stats(filename):
             "Cami": (10.0, 10.0, 10.0),
         }
     """
-    pass  # Reemplazar con tu implementación
+    if not os.path.exists(filename):
+        raise FileNotFoundError("Archivo no existe")
+
+    with open(filename, "r") as file:
+        final_dictio = {}
+        alum_and_notes = [line.split(":") for line in file if line != "\n" or ""]
+        cant_alum = len(alum_and_notes)
+        alum_names = [alum_and_notes[i][0] for i in range(cant_alum)]
+        alum_notes = [alum_and_notes[i][1].split(",") for i in range(cant_alum)]
+        alum_notes = [[float(note) for note in notes] for notes in alum_notes]
+        for i in range(cant_alum):
+            suma = sum(alum_notes[i])
+            promedio = suma / len(alum_notes[i])
+            maximo = max(alum_notes[i])
+            minimo = min(alum_notes[i])
+            tuple_notes = (promedio, maximo, minimo)
+            final_dictio[alum_names[i]] = tuple_notes
+    return final_dictio

@@ -1,4 +1,5 @@
 # Ejercicio 5 - CSV a lista de diccionarios
+import os
 
 
 def csv_to_dict(filename):
@@ -34,4 +35,23 @@ def csv_to_dict(filename):
             {"name": "Bob", "age": 25, "city": "Rosario"},
         ]
     """
-    pass  # Reemplazar con tu implementación
+    final_list = []
+    if not os.path.exists(filename):
+        raise FileNotFoundError("no existe")
+
+    with open(filename, "r") as archivo:
+        lines = [line.strip().split(",") for line in archivo]
+        try:
+            header = lines[0]
+            for i in range(1, len( lines)):
+                dictio = {}
+                for j in range(len(header)):
+                    if header[j] not in dictio:
+                        if header[j] == "age":
+                            dictio[header[j]] = int(lines[i][j])
+                        else:
+                            dictio[header[j]] = lines[i][j]
+                final_list.append(dictio)
+            return final_list
+        except IndexError:
+                return final_list
