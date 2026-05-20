@@ -47,7 +47,7 @@ def parse_log(filename):
         with open(filename, "r") as archivo:
             logs_server = {}
             for line in archivo:
-                print(line)
+                #print(line)
                 #if ": " in line:
                 try:
                     clave, mensaje = line.split(": ")
@@ -60,7 +60,7 @@ def parse_log(filename):
                 except ValueError:
                     if line.strip() != "":
                         raise ValueError("invalid log line")
-            print(logs_server)
+            #print(logs_server)
     else:
         raise FileNotFoundError
 
