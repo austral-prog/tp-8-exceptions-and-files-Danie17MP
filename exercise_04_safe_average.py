@@ -1,9 +1,6 @@
 # Ejercicio 4 - Promedio seguro con manejo de errores
 import os
 
-from fontTools.misc.cython import returns
-
-
 def safe_average(filename):
     """
     Lee un archivo donde hay UN número por línea y retorna el promedio de
